@@ -90,4 +90,8 @@ dependencies {
     implementation("androidx.room:room-ktx:$room_version")
 
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0-rc01")
+
+    implementation("androidx.compose.material3:material3:1.1.2")
+
+    implementation("org.jsoup:jsoup:1.17.1")
 }
