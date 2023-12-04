@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.twoforyou_boardgamedb"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -44,6 +44,7 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/*"
         }
     }
 }
@@ -94,4 +95,6 @@ dependencies {
     implementation("androidx.compose.material3:material3:1.1.2")
 
     implementation("org.jsoup:jsoup:1.17.1")
+
+    implementation("org.htmlunit:htmlunit3-android:3.7.0")
 }

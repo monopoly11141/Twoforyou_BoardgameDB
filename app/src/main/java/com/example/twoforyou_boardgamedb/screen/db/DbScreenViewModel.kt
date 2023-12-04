@@ -1,11 +1,8 @@
 package com.example.twoforyou_boardgamedb.screen.db
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.twoforyou_boardgamedb.model.Boardgame
@@ -16,13 +13,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
+import org.htmlunit.WebClient
+import org.htmlunit.html.HtmlPage
 import org.jsoup.Jsoup
+import java.io.File
 import javax.inject.Inject
+
 
 @HiltViewModel
 class DbScreenViewModel @Inject constructor(
     private val repository: BoardgameRepository
-): ViewModel() {
+) : ViewModel() {
 
     private val _boardgameList = MutableStateFlow<List<Boardgame>>(emptyList())
     val boardgameList = _boardgameList.asStateFlow()
@@ -54,15 +55,15 @@ class DbScreenViewModel @Inject constructor(
         repository.deleteBoardgame(boardgame)
     }
 
-    fun addBoardgameToDb(url : String) {
+    @SuppressLint("SetJavaScriptEnabled")
+    fun addBoardgameToDb(url: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val docs = Jsoup
-                .connect(url)
-                .maxBodySize(0)
-                .timeout(60000)
+            val document = Jsoup.connect(url)
+                .userAgent("Mozilla")
                 .get()
-            val title = docs.select("h1")
-            Log.d(TAG, "addBoardgameToDb: $docs")
+
+            Log.d(TAG, "addBoardgameToDb: $document")
+
         }
 
     }
